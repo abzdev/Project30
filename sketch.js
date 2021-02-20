@@ -76,6 +76,7 @@ function draw() {
   textSize(20);
   fill("lightyellow");
   text("Drag the Hexagonal Stone and Release it, to launch it towards the blocks",100,30);
+  text("Press \"Space\" for another chance!",width/2+120,360);
 
   ground.display();
   stand1.display();
