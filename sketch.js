@@ -1,14 +1,17 @@
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 const Constraint = Matter.Constraint;
 
+var gameState = 'attached';
 var engine, world;
 var holder,ball,ground;
 var stand1,stand2;
 var ball;
 var slingShot;
 var polygon_img;
+
 function preload(){
   polygon_img=loadImage("polygon.png");
 }
@@ -58,9 +61,10 @@ function setup() {
   blocks9 = new Block(700,95,30,40);
 
   //ball holder with slings
+  
   ball = Bodies.circle(50,200,20);
   World.add(world,ball);
-
+  console.log(ball);
   slingShot = new Slingshot(this.ball,{x:100,y:200});
 
 }
@@ -78,7 +82,7 @@ function draw() {
   stand2.display();
   strokeWeight(2);
   stroke(15);
-  fill("skyblue");
+  fill(255);
   block1.display();
   block2.display();
   block3.display();
@@ -86,39 +90,45 @@ function draw() {
   block5.display();
   block6.display();
   block7.display();
-  fill("pink");
   block8.display();
   block9.display();
   block10.display();
   block11.display();
   block12.display();
-  fill("turquoise");
   block13.display();
   block14.display();
   block15.display();
-  fill("grey");
   block16.display();
-  fill("skyblue");
   blocks1.display();
   blocks2.display();
   blocks3.display();
   blocks4.display();
   blocks5.display();
-  fill("turquoise");
   blocks6.display();
   blocks7.display();
   blocks8.display();
-  fill("pink")
   blocks9.display();
-  fill("gold");
   imageMode(CENTER)
   image(polygon_img ,ball.position.x,ball.position.y,40,40);
 
   slingShot.display();
 }
+
 function mouseDragged(){
-  Matter.Body.setPosition(this.ball,{x:mouseX,y:mouseY});
+  if(gameState === 'attached') {
+    Matter.Body.setPosition(this.ball,{x:mouseX,y:mouseY});
+  }
 }
+
 function mouseReleased(){
   slingShot.fly();
+  gameState = 'flying';
+}
+
+function keyPressed() {
+  if(keyCode === 32 && gameState === 'flying') {
+    Body.setPosition(this.ball,{x:slingShot.pointB.x,y:slingShot.pointB.y});
+    slingShot.attach(ball);
+    gameState = 'attached';
+  }
 }
