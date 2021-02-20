@@ -19,13 +19,13 @@ class Slingshot{
     }
     display(){
         if(this.sling.bodyA){
-        var pointA = this.sling.bodyA.position;
-        var pointB = this.pointB;
+            var pointA = this.sling.bodyA.position;
+            var pointB = this.pointB;
+            
+            strokeWeight(4);
+            stroke("turquoise");
+            line(pointA.x, pointA.y, pointB.x, pointB.y);
+        }
         
-        strokeWeight(4);
-        stroke("turquoise");
-        line(pointA.x, pointA.y, pointB.x, pointB.y);
-        }
-        }
-    
+    }   
 }
